@@ -27,33 +27,11 @@
     position: relative;
   }
 
-  .ampersand-wrap {
-    position: relative;
-    display: inline-block;
-  }
-
-  .ampersand {
-    font-size: clamp(60px, 12vw, 140px);
-    font-weight: 700;
-    font-style: italic;
-    background: linear-gradient(135deg, #f7d794 0%, #e8b86d 25%, #fceabb 50%, #d4a05a 75%, #f7d794 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shimmer 3s ease-in-out infinite;
-    display: block;
-    line-height: 1;
-    text-shadow: none;
-    filter: drop-shadow(0 0 30px rgba(232,184,109,0.5));
-  }
-
   .names {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: clamp(12px, 3vw, 30px);
-    margin-top: -10px;
   }
 
   .name {
@@ -67,20 +45,83 @@
 
   .name:last-child { animation-delay: 0.5s; }
 
+  .ampersand {
+    font-size: clamp(50px, 10vw, 120px);
+    font-weight: 700;
+    font-style: italic;
+    background: linear-gradient(135deg, #f7d794 0%, #e8b86d 25%, #fceabb 50%, #d4a05a 75%, #f7d794 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s ease-in-out infinite;
+    display: block;
+    line-height: 1;
+    margin: -0.05em 0;
+    filter: drop-shadow(0 0 30px rgba(232,184,109,0.5));
+  }
+
+  /* ---- Timer ---- */
+  .timer-section {
+    margin: clamp(10px, 2vw, 20px) 0;
+    animation: fadeInUp 1.5s ease-out both;
+    animation-delay: 0.5s;
+  }
+  .since {
+    font-size: clamp(11px, 1.5vw, 14px);
+    color: rgba(240,217,181,0.45);
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+    font-family: 'Georgia', 'Songti SC', 'STSong', serif;
+  }
+  .timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(6px, 1.2vw, 14px);
+  }
+  .time-block {
+    text-align: center;
+    min-width: clamp(50px, 8vw, 80px);
+  }
+  .time-num {
+    font-size: clamp(22px, 4vw, 48px);
+    font-weight: 400;
+    color: #f0d9b5;
+    letter-spacing: 0.04em;
+    text-shadow: 0 0 20px rgba(240,217,181,0.3);
+    font-variant-numeric: tabular-nums;
+    font-family: 'Georgia', 'Songti SC', 'STSong', serif;
+    line-height: 1;
+  }
+  .time-label {
+    font-size: clamp(9px, 1.2vw, 12px);
+    color: rgba(240,217,181,0.4);
+    letter-spacing: 0.15em;
+    margin-top: 4px;
+    font-family: 'Georgia', 'Songti SC', 'STSong', serif;
+  }
+  .time-colon {
+    font-size: clamp(18px, 3.5vw, 40px);
+    color: rgba(232,184,109,0.5);
+    margin-top: -0.3em;
+    font-weight: 300;
+  }
+
   .divider {
     width: clamp(40px, 8vw, 80px);
     height: 1px;
     background: linear-gradient(90deg, transparent, #e8b86d, transparent);
-    margin: clamp(16px, 3vw, 30px) auto;
+    margin: clamp(12px, 2vw, 24px) auto;
   }
 
   .subtitle {
-    font-size: clamp(12px, 2vw, 18px);
-    color: rgba(240,217,181,0.6);
-    letter-spacing: 0.25em;
+    font-size: clamp(11px, 1.8vw, 16px);
+    color: rgba(240,217,181,0.5);
+    letter-spacing: 0.28em;
     font-family: 'Georgia', 'Songti SC', 'STSong', serif;
     animation: fadeInUp 2s ease-out both;
-    animation-delay: 0.8s;
+    animation-delay: 1s;
   }
 
   @keyframes shimmer {
@@ -154,9 +195,7 @@
 <canvas id="c"></canvas>
 
 <!-- Background Music -->
-<audio id="bgm" loop preload="auto"
-  src="loveling.m4a">
-</audio>
+<audio id="bgm" loop preload="auto" src="loveling.m4a"></audio>
 <button class="music-btn playing" id="musicBtn" title="音乐开关">
   <svg id="musicIconOn" viewBox="0 0 24 24" fill="none" stroke="rgba(232,184,109,0.9)" stroke-width="1.5">
     <path d="M9 18V5l12-2v13"/>
@@ -176,11 +215,33 @@
   <div class="names">
     <span class="name">邢朗曦</span>
   </div>
-  <div class="ampersand-wrap">
-    <span class="ampersand">&</span>
-  </div>
+  <span class="ampersand">&</span>
   <div class="names">
     <span class="name">潘铮</span>
+  </div>
+  <div class="timer-section">
+    <div class="since">在一起</div>
+    <div class="timer">
+      <div class="time-block">
+        <div class="time-num" id="days">000</div>
+        <div class="time-label">天</div>
+      </div>
+      <span class="time-colon">:</span>
+      <div class="time-block">
+        <div class="time-num" id="hours">00</div>
+        <div class="time-label">时</div>
+      </div>
+      <span class="time-colon">:</span>
+      <div class="time-block">
+        <div class="time-num" id="minutes">00</div>
+        <div class="time-label">分</div>
+      </div>
+      <span class="time-colon">:</span>
+      <div class="time-block">
+        <div class="time-num" id="seconds">00</div>
+        <div class="time-label">秒</div>
+      </div>
+    </div>
   </div>
   <div class="divider"></div>
   <div class="subtitle">F O R E V E R</div>
@@ -206,12 +267,10 @@ const musicIconOff = document.getElementById('musicIconOff');
 const musicNote = document.getElementById('musicNote');
 let musicPlaying = true;
 
-// Try autoplay
 bgm.volume = 0.35;
 const playPromise = bgm.play();
 if (playPromise !== undefined) {
   playPromise.catch(() => {
-    // Browser blocked autoplay — show paused state
     musicPlaying = false;
     musicBtn.classList.remove('playing');
     musicIconOn.style.display = 'none';
@@ -238,21 +297,49 @@ musicBtn.addEventListener('click', () => {
   }
 });
 
-// ---- Particle system ----
-const particles = [];
-const PARTICLE_COUNT = 120;
+// ---- Real-time counter ----
+const START = new Date('2023-11-17T21:00:00');
 
+function pad(n, w) {
+  return String(n).padStart(w, '0');
+}
+
+function updateTimer() {
+  const now = new Date();
+  let diff = now - START;
+  if (diff < 0) diff = 0;
+
+  const totalSec = Math.floor(diff / 1000);
+  const totalMin = Math.floor(totalSec / 60);
+  const totalHr  = Math.floor(totalMin / 60);
+  const totalDay = Math.floor(totalHr / 24);
+
+  const sec = totalSec % 60;
+  const min = totalMin % 60;
+  const hr  = totalHr % 24;
+  const day = totalDay;
+
+  document.getElementById('days').textContent    = pad(day, day >= 1000 ? 4 : (day >= 100 ? 3 : 2));
+  document.getElementById('hours').textContent   = pad(hr, 2);
+  document.getElementById('minutes').textContent = pad(min, 2);
+  document.getElementById('seconds').textContent = pad(sec, 2);
+}
+updateTimer();
+setInterval(updateTimer, 1000);
+
+// ---- Canvas background elements ----
+// Particles (gold/rose twinkling dots)
+const particles = [];
+const PARTICLE_COUNT = 100;
 class Particle {
-  constructor() {
-    this.reset(true);
-  }
-  reset(init = false) {
+  constructor() { this.reset(true); }
+  reset(init) {
     this.x = Math.random() * W;
     this.y = init ? Math.random() * H : H + 20;
-    this.size = Math.random() * 2.5 + 0.8;
-    this.speedY = -(Math.random() * 0.6 + 0.2);
-    this.speedX = (Math.random() - 0.5) * 0.4;
-    this.opacity = Math.random() * 0.7 + 0.3;
+    this.size = Math.random() * 2 + 0.6;
+    this.speedY = -(Math.random() * 0.5 + 0.15);
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.6 + 0.2;
     this.twinkle = Math.random() * Math.PI * 2;
     this.twinkleSpeed = Math.random() * 0.03 + 0.01;
     this.hue = Math.random() < 0.5 ? 40 + Math.random() * 15 : 350 + Math.random() * 20;
@@ -261,9 +348,9 @@ class Particle {
   }
   update() {
     this.age++;
-    if (this.age > this.life) { this.reset(); this.age = 0; }
+    if (this.age > this.life) { this.reset(false); this.age = 0; }
     this.y += this.speedY;
-    this.x += this.speedX + Math.sin(this.age * 0.02) * 0.3;
+    this.x += this.speedX + Math.sin(this.age * 0.02) * 0.25;
     this.twinkle += this.twinkleSpeed;
     if (this.x < -10) this.x = W + 10;
     if (this.x > W + 10) this.x = -10;
@@ -277,17 +364,15 @@ class Particle {
     ctx.fill();
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size * 2.5, 0, Math.PI * 2);
-    ctx.fillStyle = `hsla(${this.hue}, 60%, 70%, ${alpha * fade * 0.15})`;
+    ctx.fillStyle = `hsla(${this.hue}, 60%, 70%, ${alpha * fade * 0.12})`;
     ctx.fill();
   }
 }
-
 for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
 
 // ---- Hearts ----
 const hearts = [];
-const HEART_COUNT = 18;
-
+const HEART_COUNT = 15;
 function heartPath(x, y, s) {
   ctx.beginPath();
   const topY = y - s * 0.35;
@@ -296,28 +381,25 @@ function heartPath(x, y, s) {
   ctx.bezierCurveTo(x + s * 0.5, y - s * 0.7, x + s, y + s * 0.1, x, y + s * 0.6);
   ctx.closePath();
 }
-
 class Heart {
-  constructor() {
-    this.reset(true);
-  }
-  reset(init = false) {
+  constructor() { this.reset(true); }
+  reset(init) {
     this.x = Math.random() * W;
     this.y = init ? Math.random() * H : H + 60;
-    this.size = Math.random() * 14 + 8;
-    this.speedY = -(Math.random() * 0.5 + 0.15);
-    this.speedX = (Math.random() - 0.5) * 0.5;
-    this.wobbleAmp = Math.random() * 0.6 + 0.2;
-    this.wobbleFreq = Math.random() * 0.02 + 0.008;
-    this.opacity = Math.random() * 0.5 + 0.25;
+    this.size = Math.random() * 12 + 6;
+    this.speedY = -(Math.random() * 0.45 + 0.12);
+    this.speedX = (Math.random() - 0.5) * 0.4;
+    this.wobbleAmp = Math.random() * 0.5 + 0.15;
+    this.wobbleFreq = Math.random() * 0.02 + 0.006;
+    this.opacity = Math.random() * 0.4 + 0.2;
     this.hue = Math.random() < 0.5 ? 350 + Math.random() * 15 : 340 + Math.random() * 10;
     this.age = 0;
     this.life = Math.random() * 500 + 400;
-    this.rotation = (Math.random() - 0.5) * 0.5;
+    this.rotation = (Math.random() - 0.5) * 0.4;
   }
   update() {
     this.age++;
-    if (this.age > this.life) { this.reset(); this.age = 0; }
+    if (this.age > this.life) { this.reset(false); this.age = 0; }
     this.y += this.speedY;
     this.x += this.speedX + Math.sin(this.age * this.wobbleFreq) * this.wobbleAmp;
     if (this.x < -30) this.reset(true);
@@ -329,47 +411,199 @@ class Heart {
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.rotation);
-    const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size * 1.4);
+    const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size * 1.3);
     grad.addColorStop(0, `hsla(${this.hue}, 80%, 65%, ${alpha})`);
-    grad.addColorStop(0.6, `hsla(${this.hue}, 70%, 55%, ${alpha * 0.6})`);
+    grad.addColorStop(0.6, `hsla(${this.hue}, 70%, 55%, ${alpha * 0.5})`);
     grad.addColorStop(1, `hsla(${this.hue}, 60%, 50%, 0)`);
     heartPath(0, 0, this.size);
     ctx.fillStyle = grad;
     ctx.fill();
     heartPath(0, 0, this.size);
-    ctx.strokeStyle = `hsla(${this.hue}, 70%, 75%, ${alpha * 0.5})`;
-    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = `hsla(${this.hue}, 70%, 75%, ${alpha * 0.4})`;
+    ctx.lineWidth = 0.4;
     ctx.stroke();
     ctx.restore();
   }
 }
-
 for (let i = 0; i < HEART_COUNT; i++) hearts.push(new Heart());
+
+// ---- Badminton shuttlecocks ----
+const shuttles = [];
+const SHUTTLE_COUNT = 8;
+class Shuttle {
+  constructor() { this.reset(true); }
+  reset(init) {
+    this.x = Math.random() * W;
+    this.y = init ? Math.random() * H : H + 50;
+    this.size = Math.random() * 10 + 8;
+    this.speedY = -(Math.random() * 0.3 + 0.08);
+    this.speedX = (Math.random() - 0.5) * 0.35;
+    this.rotation = Math.random() * Math.PI * 2;
+    this.rotSpeed = (Math.random() - 0.5) * 0.008;
+    this.opacity = Math.random() * 0.15 + 0.06;
+    this.age = 0;
+    this.life = Math.random() * 800 + 600;
+    this.wobble = Math.random() * 0.03 + 0.01;
+  }
+  update() {
+    this.age++;
+    if (this.age > this.life) { this.reset(false); this.age = 0; }
+    this.y += this.speedY;
+    this.x += this.speedX + Math.sin(this.age * this.wobble) * 0.4;
+    this.rotation += this.rotSpeed;
+    if (this.x < -30) this.reset(true);
+    if (this.x > W + 30) this.reset(true);
+  }
+  draw(ctx) {
+    const fade = this.age < 80 ? this.age / 80 : (this.life - this.age < 80 ? (this.life - this.age) / 80 : 1);
+    const alpha = this.opacity * fade;
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.strokeStyle = `rgba(200,180,150,${alpha})`;
+    ctx.fillStyle = `rgba(200,180,150,${alpha * 0.5})`;
+    ctx.lineWidth = 0.6;
+    const s = this.size;
+    // Shuttlecock skirt (cone shape with slits)
+    ctx.beginPath();
+    ctx.moveTo(s * 0.6, -s * 0.65);
+    ctx.quadraticCurveTo(s * 0.8, -s * 0.3, s * 0.9, s * 0.1);
+    ctx.quadraticCurveTo(s * 0.85, -s * 0.15, s * 0.6, -s * 0.05);
+    ctx.quadraticCurveTo(s * 0.5, s * 0.2, s * 0.35, s * 0.45);
+    ctx.lineTo(-s * 0.35, s * 0.45);
+    ctx.quadraticCurveTo(-s * 0.5, s * 0.2, -s * 0.6, -s * 0.05);
+    ctx.quadraticCurveTo(-s * 0.85, -s * 0.15, -s * 0.9, s * 0.1);
+    ctx.quadraticCurveTo(-s * 0.8, -s * 0.3, -s * 0.6, -s * 0.65);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    // Feather lines
+    for (let i = -2; i <= 2; i++) {
+      ctx.beginPath();
+      ctx.moveTo(0, s * 0.55);
+      ctx.quadraticCurveTo(i * s * 0.18, -s * 0.1, i * s * 0.28, -s * 0.7);
+      ctx.stroke();
+    }
+    // Cork head
+    ctx.beginPath();
+    ctx.arc(0, -s * 0.4, s * 0.18, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(180,150,130,${alpha * 0.7})`;
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+for (let i = 0; i < SHUTTLE_COUNT; i++) shuttles.push(new Shuttle());
+
+// ---- Music notes (Mayday element) ----
+const notes = [];
+const NOTE_COUNT = 7;
+const NOTE_SHAPES = [
+  // single note
+  (s, a) => { ctx.fillStyle = `rgba(200,175,140,${a})`; ctx.beginPath(); ctx.ellipse(0, 0, s*0.22, s*0.18, -0.3, 0, Math.PI*2); ctx.fill(); ctx.fillRect(s*0.16, -s*0.7, s*0.08, s*0.55); },
+  // double note
+  (s, a) => { ctx.fillStyle = `rgba(200,175,140,${a})`; ctx.beginPath(); ctx.ellipse(0, 0, s*0.22, s*0.18, -0.3, 0, Math.PI*2); ctx.fill(); ctx.fillRect(s*0.16, -s*0.7, s*0.08, s*0.55); ctx.beginPath(); ctx.ellipse(s*0.38, -s*0.15, s*0.22, s*0.18, -0.3, 0, Math.PI*2); ctx.fill(); ctx.fillRect(s*0.54, -s*0.85, s*0.08, s*0.55); ctx.strokeStyle = `rgba(200,175,140,${a*0.6})`; ctx.lineWidth=0.5; ctx.beginPath(); ctx.moveTo(s*0.24,-s*0.15); ctx.lineTo(s*0.62,-s*0.3); ctx.stroke(); },
+];
+class Note {
+  constructor() { this.reset(true); }
+  reset(init) {
+    this.x = Math.random() * W;
+    this.y = init ? Math.random() * H : H + 40;
+    this.size = Math.random() * 8 + 7;
+    this.speedY = -(Math.random() * 0.35 + 0.1);
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.14 + 0.05;
+    this.age = 0;
+    this.life = Math.random() * 700 + 500;
+    this.shape = NOTE_SHAPES[Math.floor(Math.random() * 2)];
+    this.wobble = Math.random() * 0.03 + 0.01;
+  }
+  update() {
+    this.age++;
+    if (this.age > this.life) { this.reset(false); this.age = 0; }
+    this.y += this.speedY;
+    this.x += this.speedX + Math.sin(this.age * this.wobble) * 0.5;
+    if (this.x < -30) this.reset(true);
+    if (this.x > W + 30) this.reset(true);
+  }
+  draw(ctx) {
+    const fade = this.age < 80 ? this.age / 80 : (this.life - this.age < 80 ? (this.life - this.age) / 80 : 1);
+    const alpha = this.opacity * fade;
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    this.shape(this.size, alpha);
+    ctx.restore();
+  }
+}
+for (let i = 0; i < NOTE_COUNT; i++) notes.push(new Note());
+
+// ---- Number 7 ornaments ----
+const sevens = [];
+const SEVEN_COUNT = 5;
+class Seven {
+  constructor() { this.reset(true); }
+  reset(init) {
+    this.x = Math.random() * W;
+    this.y = init ? Math.random() * H : H + 50;
+    this.size = Math.random() * 14 + 12;
+    this.speedY = -(Math.random() * 0.25 + 0.06);
+    this.speedX = (Math.random() - 0.5) * 0.25;
+    this.opacity = Math.random() * 0.1 + 0.04;
+    this.age = 0;
+    this.life = Math.random() * 900 + 700;
+    this.wobble = Math.random() * 0.02 + 0.005;
+  }
+  update() {
+    this.age++;
+    if (this.age > this.life) { this.reset(false); this.age = 0; }
+    this.y += this.speedY;
+    this.x += this.speedX + Math.sin(this.age * this.wobble) * 0.4;
+    if (this.x < -40) this.reset(true);
+    if (this.x > W + 40) this.reset(true);
+  }
+  draw(ctx) {
+    const fade = this.age < 100 ? this.age / 100 : (this.life - this.age < 100 ? (this.life - this.age) / 100 : 1);
+    const alpha = this.opacity * fade;
+    const s = this.size;
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.strokeStyle = `rgba(220,195,160,${alpha})`;
+    ctx.lineWidth = 1;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    // Elegant serif "7"
+    ctx.beginPath();
+    ctx.moveTo(-s * 0.55, -s * 0.5);
+    ctx.lineTo(s * 0.55, -s * 0.5);
+    ctx.lineTo(s * 0.1, s * 0.55);
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+for (let i = 0; i < SEVEN_COUNT; i++) sevens.push(new Seven());
 
 // ---- Floating petals ----
 const petals = [];
-const PETAL_COUNT = 25;
+const PETAL_COUNT = 20;
 class Petal {
-  constructor() {
-    this.reset(true);
-  }
-  reset(init = false) {
+  constructor() { this.reset(true); }
+  reset(init) {
     this.x = Math.random() * W;
     this.y = init ? Math.random() * H : H + 30;
-    this.size = Math.random() * 6 + 2;
-    this.speedY = -(Math.random() * 0.3 + 0.1);
-    this.speedX = (Math.random() - 0.5) * 0.6;
+    this.size = Math.random() * 5 + 2;
+    this.speedY = -(Math.random() * 0.25 + 0.08);
+    this.speedX = (Math.random() - 0.5) * 0.5;
     this.rotation = Math.random() * Math.PI * 2;
     this.rotSpeed = (Math.random() - 0.5) * 0.02;
-    this.opacity = Math.random() * 0.3 + 0.1;
+    this.opacity = Math.random() * 0.25 + 0.08;
     this.age = 0;
     this.life = Math.random() * 600 + 500;
   }
   update() {
     this.age++;
-    if (this.age > this.life) { this.reset(); this.age = 0; }
+    if (this.age > this.life) { this.reset(false); this.age = 0; }
     this.y += this.speedY;
-    this.x += this.speedX + Math.sin(this.age * 0.015) * 0.5;
+    this.x += this.speedX + Math.sin(this.age * 0.012) * 0.4;
     this.rotation += this.rotSpeed;
     if (this.x < -20) this.x = W + 20;
     if (this.x > W + 20) this.x = -20;
@@ -379,10 +613,10 @@ class Petal {
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.rotation);
-    ctx.scale(this.size / 6, this.size / 6);
+    ctx.scale(this.size / 5, this.size / 5);
     ctx.beginPath();
-    ctx.ellipse(0, 0, 6, 2.5, 0, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(220,140,150,${this.opacity * fade})`;
+    ctx.ellipse(0, 0, 5, 2, 0, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(210,135,145,${this.opacity * fade})`;
     ctx.fill();
     ctx.restore();
   }
@@ -394,11 +628,10 @@ const sparkles = [];
 const SPARKLE_COUNT = 15;
 for (let i = 0; i < SPARKLE_COUNT; i++) {
   sparkles.push({
-    x: 0, y: 0,
-    targetX: 0, targetY: 0,
-    size: Math.random() * 2 + 1.5,
+    x: 0, y: 0, targetX: 0, targetY: 0,
+    size: Math.random() * 2 + 1.2,
     delay: Math.random() * 3,
-    speed: Math.random() * 0.02 + 0.01,
+    speed: Math.random() * 0.018 + 0.008,
     phase: Math.random() * Math.PI * 2,
     opacity: 0
   });
@@ -428,11 +661,11 @@ function drawSparkles(time) {
     ctx.fill();
     ctx.beginPath();
     ctx.arc(s.x, s.y, s.size * 3, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(252,234,187,${s.opacity * 0.15})`;
+    ctx.fillStyle = `rgba(252,234,187,${s.opacity * 0.12})`;
     ctx.fill();
     if (s.opacity > 0.6) {
-      ctx.strokeStyle = `rgba(252,234,187,${s.opacity * 0.6})`;
-      ctx.lineWidth = 0.5;
+      ctx.strokeStyle = `rgba(252,234,187,${s.opacity * 0.5})`;
+      ctx.lineWidth = 0.4;
       ctx.beginPath();
       ctx.moveTo(s.x - s.size * 3, s.y);
       ctx.lineTo(s.x + s.size * 3, s.y);
@@ -447,14 +680,18 @@ function drawSparkles(time) {
 function animate(time) {
   ctx.clearRect(0, 0, W, H);
 
-  const vignette = ctx.createRadialGradient(W/2, H/2, Math.min(W,H)*0.4, W/2, H/2, Math.max(W,H)*0.75);
-  vignette.addColorStop(0, 'transparent');
-  vignette.addColorStop(1, 'rgba(5,1,3,0.55)');
-
+  // Background elements (bottom layer)
+  sevens.forEach(s => { s.update(); s.draw(ctx); });
+  shuttles.forEach(s => { s.update(); s.draw(ctx); });
+  notes.forEach(n => { n.update(); n.draw(ctx); });
   petals.forEach(p => { p.update(); p.draw(ctx); });
   particles.forEach(p => { p.update(); p.draw(ctx); });
   hearts.forEach(h => { h.update(); h.draw(ctx); });
 
+  // Vignette overlay
+  const vignette = ctx.createRadialGradient(W/2, H/2, Math.min(W,H)*0.42, W/2, H/2, Math.max(W,H)*0.78);
+  vignette.addColorStop(0, 'transparent');
+  vignette.addColorStop(1, 'rgba(5,1,3,0.55)');
   ctx.fillStyle = vignette;
   ctx.fillRect(0, 0, W, H);
 
@@ -467,16 +704,15 @@ requestAnimationFrame(animate);
 
 // ---- Click hearts ----
 document.addEventListener('click', e => {
-  // Don't trigger on music button
   if (e.target.closest('#musicBtn')) return;
   for (let i = 0; i < 5; i++) {
     const h = new Heart();
     h.x = e.clientX + (Math.random() - 0.5) * 40;
     h.y = e.clientY + (Math.random() - 0.5) * 20;
-    h.size = Math.random() * 18 + 10;
+    h.size = Math.random() * 16 + 8;
     h.speedY = -(Math.random() * 1.5 + 0.5);
     h.speedX = (Math.random() - 0.5) * 2;
-    h.opacity = 0.7;
+    h.opacity = 0.65;
     h.life = 150;
     h.age = 0;
     hearts.push(h);
